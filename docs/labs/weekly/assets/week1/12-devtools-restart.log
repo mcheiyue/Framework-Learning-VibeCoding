@@ -1,0 +1,28 @@
+2026-03-17 10:28:44 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-17 10:28:44 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 595 ms
+2026-03-17 10:28:44 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-03-17 10:28:44 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 18080 (http) with context path '/'
+2026-03-17 10:28:44 [restartedMain] INFO  com.example.demo.DemoApplication - Started DemoApplication in 1.425 seconds (process running for 1.686)
+2026-03-17 10:28:48 [http-nio-18080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-17 10:28:48 [http-nio-18080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-17 10:28:48 [http-nio-18080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-03-17 10:30:49 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-17 10:30:49 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-17 10:30:49 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.11)
+
+2026-03-17 10:30:49 [restartedMain] INFO  com.example.demo.DemoApplication - Starting DemoApplication using Java 22 with PID 41460 (D:\Github\Framework-Learning-VibeCoding\demo\target\classes started by heiyue in D:\Github\Framework-Learning-VibeCoding\demo)
+2026-03-17 10:30:49 [restartedMain] DEBUG com.example.demo.DemoApplication - Running with Spring Boot v3.5.11, Spring v6.2.16
+2026-03-17 10:30:49 [restartedMain] INFO  com.example.demo.DemoApplication - The following 1 profile is active: "dev"
+2026-03-17 10:30:49 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 18080 (http)
+2026-03-17 10:30:49 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-17 10:30:49 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-17 10:30:49 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext

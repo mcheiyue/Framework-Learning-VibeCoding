@@ -1,0 +1,1 @@
+{"appName":"Spring Boot 多环境配置示例","version":"1.0.0","author":"你的名字","environment":"生产环境","debug":false,"uploadPath":"/data/upload/prod","maxFileSize":"2MB","serverPort":"18082","activeProfile":"prod"}
