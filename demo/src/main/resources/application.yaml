@@ -1,3 +1,25 @@
 spring:
   application:
     name: demo
+
+  profiles:
+    active: dev
+
+  devtools:
+    restart:
+      enabled: true
+      exclude: static/**,public/**,templates/**,META-INF/maven/**,META-INF/resources/**
+    livereload:
+      enabled: true
+
+server:
+  port: 8080
+
+app:
+  name: Spring Boot 多环境配置示例
+  version: 1.0.0
+  author: 你的名字
+
+logging:
+  level:
+    org.springframework.boot.devtools: INFO
