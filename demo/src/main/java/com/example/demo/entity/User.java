@@ -1,41 +1,27 @@
 package com.example.demo.entity;
 
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
 public class User {
 
 	private Long id;
+
 	private String username;
+
 	private String email;
+
+	private String phone;
+
+	private String password;
+
 	private Integer age;
 
-	public Long getId() {
-		return id;
-	}
+	private Integer status;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private LocalDateTime createTime;
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+	private LocalDateTime updateTime;
 }
