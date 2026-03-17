@@ -23,3 +23,9 @@ app:
 logging:
   level:
     org.springframework.boot.devtools: INFO
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
