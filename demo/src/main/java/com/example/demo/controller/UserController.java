@@ -2,15 +2,24 @@ package com.example.demo.controller;
 
 import com.example.demo.common.Result;
 import com.example.demo.common.ResultCode;
+import com.example.demo.dto.UserRegisterDTO;
+import com.example.demo.dto.UserUpdateDTO;
 import com.example.demo.entity.User;
 import com.example.demo.exception.BusinessException;
+import com.example.demo.validation.ValidationGroup;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -80,5 +89,31 @@ public class UserController {
 	@GetMapping("/illegal-argument")
 	public Result<String> illegalArgument() {
 		throw new IllegalArgumentException("参数不合法");
+	}
+
+	@PostMapping("/register")
+	public Result<String> register(@Valid @RequestBody UserRegisterDTO dto) {
+		if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+			return Result.error("两次密码不一致");
+		}
+
+		log.info("用户注册: {}", dto.getUsername());
+		return Result.success("注册成功");
+	}
+
+	@PostMapping("/test-enum")
+	public Result<String> testEnum(@Valid @RequestBody UserRegisterDTO dto) {
+		log.info("性别: {}", dto.getGender());
+		return Result.success("测试成功");
+	}
+
+	@PostMapping("/create")
+	public Result<String> createUser(@Validated(ValidationGroup.Create.class) @RequestBody UserUpdateDTO dto) {
+		return Result.success("新增用户成功: " + dto.getUsername());
+	}
+
+	@PostMapping("/update")
+	public Result<String> updateUser(@Validated(ValidationGroup.Update.class) @RequestBody UserUpdateDTO dto) {
+		return Result.success("更新用户成功: ID=" + dto.getId());
 	}
 }

@@ -1,0 +1,1 @@
+{"code":200,"message":"操作成功","data":{"id":1,"username":"张三","email":"zhangsan@example.com","phone":null,"password":null,"age":20,"status":null,"createTime":null,"updateTime":null},"timestamp":1773717325104,"traceId":"","success":true}
