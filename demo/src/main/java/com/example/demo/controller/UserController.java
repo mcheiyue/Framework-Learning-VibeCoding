@@ -7,48 +7,50 @@ import com.example.demo.dto.UserRegisterDTO;
 import com.example.demo.dto.UserUpdateDTO;
 import com.example.demo.entity.User;
 import com.example.demo.exception.BusinessException;
+import com.example.demo.service.UserService;
 import com.example.demo.validation.ValidationGroup;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
+@Tag(name = "用户管理", description = "用户相关接口")
 public class UserController {
+
+	private final UserService userService;
 
 	@GetMapping("/get")
 	@Log(value = "查询单个用户", module = "用户管理")
-	public Result<User> getUser() {
-		User user = new User();
-		user.setId(1L);
-		user.setUsername("张三");
-		user.setEmail("zhangsan@example.com");
-		user.setAge(20);
+	@Operation(summary = "查询单个用户")
+	public Result<User> getUser(
+			@Parameter(description = "用户ID，不传默认 1", example = "1")
+			@RequestParam(required = false) Long id
+	) {
+		Long userId = id == null ? 1L : id;
+		User user = userService.getById(userId);
 		return Result.success(user);
 	}
 
 	@GetMapping("/list")
 	@Log(value = "查询用户列表", module = "用户管理")
+	@Operation(summary = "查询用户列表")
 	public Result<List<User>> getUserList() {
-		User user1 = new User();
-		user1.setId(1L);
-		user1.setUsername("张三");
-
-		User user2 = new User();
-		user2.setId(2L);
-		user2.setUsername("李四");
-
-		List<User> users = Arrays.asList(user1, user2);
-		return Result.success(users);
+		return Result.success(userService.list());
 	}
 
 	@GetMapping("/empty")
@@ -103,11 +105,13 @@ public class UserController {
 
 	@PostMapping("/register")
 	@Log(value = "用户注册", module = "用户管理")
+	@Operation(summary = "用户注册")
 	public Result<String> register(@Valid @RequestBody UserRegisterDTO dto) {
 		if (!dto.getPassword().equals(dto.getConfirmPassword())) {
 			return Result.error("两次密码不一致");
 		}
 
+		userService.register(dto);
 		log.info("用户注册: {}", dto.getUsername());
 		return Result.success("注册成功");
 	}
