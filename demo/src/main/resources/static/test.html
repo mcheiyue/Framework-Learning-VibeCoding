@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>CORS 测试页面</title>
+	<style>
+		body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; padding: 16px; }
+		button { margin-right: 8px; margin-bottom: 8px; }
+		pre { background: #0b1020; color: #d6e1ff; padding: 12px; overflow: auto; }
+		.ok { color: #0a7a2f; font-weight: 600; }
+		.bad { color: #a61b1b; font-weight: 600; }
+	</style>
+</head>
+<body>
+	<h1>跨域（CORS）验证</h1>
+	<p>前端：本页通过 <code>http://localhost:5173</code> 访问（独立静态服务器）。后端：<code id="apiBase"></code></p>
+
+	<div>
+		<button id="btnGet">测试 GET /user/get</button>
+		<button id="btnList">测试 GET /user/list</button>
+		<button id="btnPost">测试 POST /user/register</button>
+	</div>
+
+	<div id="status"></div>
+	<pre id="output"></pre>
+
+	<script>
+		const API_BASE = 'http://localhost:18080';
+		document.getElementById('apiBase').textContent = API_BASE;
+
+		const statusEl = document.getElementById('status');
+		const outputEl = document.getElementById('output');
+
+		function show(ok, label, payload) {
+			statusEl.textContent = label;
+			statusEl.className = ok ? 'ok' : 'bad';
+			outputEl.textContent = typeof payload === 'string' ? payload : JSON.stringify(payload, null, 2);
+		}
+
+		async function get(path) {
+			const res = await fetch(`${API_BASE}${path}`, { credentials: 'include' });
+			const text = await res.text();
+			return { status: res.status, body: text };
+		}
+
+		async function post(path, body) {
+			const res = await fetch(`${API_BASE}${path}`, {
+				method: 'POST',
+				credentials: 'include',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(body)
+			});
+			const text = await res.text();
+			return { status: res.status, body: text };
+		}
+
+		document.getElementById('btnGet').addEventListener('click', async () => {
+			try {
+				const res = await get('/user/get');
+				show(res.status >= 200 && res.status < 300, `GET /user/get - ${res.status}`, res.body);
+			} catch (e) {
+				show(false, 'GET /user/get - 失败', String(e));
+			}
+		});
+
+		document.getElementById('btnList').addEventListener('click', async () => {
+			try {
+				const res = await get('/user/list');
+				show(res.status >= 200 && res.status < 300, `GET /user/list - ${res.status}`, res.body);
+			} catch (e) {
+				show(false, 'GET /user/list - 失败', String(e));
+			}
+		});
+
+		document.getElementById('btnPost').addEventListener('click', async () => {
+			try {
+				const res = await post('/user/register', {
+					username: 'zhangsan',
+					password: 'Password123',
+					confirmPassword: 'Password123',
+					email: 'zhangsan@example.com',
+					age: 20
+				});
+				show(res.status >= 200 && res.status < 300, `POST /user/register - ${res.status}`, res.body);
+			} catch (e) {
+				show(false, 'POST /user/register - 失败', String(e));
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+2026-03-17 12:06:32 [http-nio-18080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.ArithmeticException: / by zero]
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习1：匹配到了 controller 包下的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习2：匹配到了 PointcutTestController 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习3：匹配到了无参方法 noParams
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习8：匹配到返回值为 String 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.c.PointcutTestController - 执行：noParams()。
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习1：匹配到了 controller 包下的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习2：匹配到了 PointcutTestController 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习4：匹配到单参方法 oneParam(name=张三)
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习8：匹配到返回值为 String 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.c.PointcutTestController - 执行：oneParam(name=张三)。
+2026-03-17 12:06:32 [http-nio-18080-exec-5] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习1：匹配到了 controller 包下的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-5] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习2：匹配到了 PointcutTestController 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-5] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习5：匹配到双参方法 twoParams(name=张三, age=20)
+2026-03-17 12:06:32 [http-nio-18080-exec-5] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习8：匹配到返回值为 String 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-5] INFO  c.e.d.c.PointcutTestController - 执行：twoParams(name=张三, age=20)。

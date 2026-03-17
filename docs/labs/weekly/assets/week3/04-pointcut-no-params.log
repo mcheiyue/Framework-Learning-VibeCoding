@@ -1,0 +1,21 @@
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1775)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+2026-03-17 12:06:32 [http-nio-18080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.ArithmeticException: / by zero]
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习1：匹配到了 controller 包下的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习2：匹配到了 PointcutTestController 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习3：匹配到了无参方法 noParams
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习8：匹配到返回值为 String 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-2] INFO  c.e.d.c.PointcutTestController - 执行：noParams()。
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习1：匹配到了 controller 包下的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习2：匹配到了 PointcutTestController 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习4：匹配到单参方法 oneParam(name=张三)
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.aspect.PointcutPracticeAspect - ? 练习8：匹配到返回值为 String 的方法
+2026-03-17 12:06:32 [http-nio-18080-exec-3] INFO  c.e.d.c.PointcutTestController - 执行：oneParam(name=张三)。
