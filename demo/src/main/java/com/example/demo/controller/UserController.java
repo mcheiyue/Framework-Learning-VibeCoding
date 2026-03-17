@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.common.Result;
 import com.example.demo.common.ResultCode;
+import com.example.demo.annotation.Log;
 import com.example.demo.dto.UserRegisterDTO;
 import com.example.demo.dto.UserUpdateDTO;
 import com.example.demo.entity.User;
@@ -25,6 +26,7 @@ import java.util.List;
 public class UserController {
 
 	@GetMapping("/get")
+	@Log(value = "查询单个用户", module = "用户管理")
 	public Result<User> getUser() {
 		User user = new User();
 		user.setId(1L);
@@ -35,6 +37,7 @@ public class UserController {
 	}
 
 	@GetMapping("/list")
+	@Log(value = "查询用户列表", module = "用户管理")
 	public Result<List<User>> getUserList() {
 		User user1 = new User();
 		user1.setId(1L);
@@ -91,7 +94,15 @@ public class UserController {
 		throw new IllegalArgumentException("参数不合法");
 	}
 
+	@GetMapping("/exception")
+	@Log(value = "测试异常", module = "测试")
+	public Result<String> exception() {
+		int i = 1 / 0;
+		return Result.success(String.valueOf(i));
+	}
+
 	@PostMapping("/register")
+	@Log(value = "用户注册", module = "用户管理")
 	public Result<String> register(@Valid @RequestBody UserRegisterDTO dto) {
 		if (!dto.getPassword().equals(dto.getConfirmPassword())) {
 			return Result.error("两次密码不一致");
