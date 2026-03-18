@@ -184,7 +184,7 @@ mvnw.cmd -Dtest=*Tests test
 4) **用户审阅门禁**：仅当用户确认 `expNN.md` 通过后，才进入 Word。
 5) **再产出独立 Word**：
    - 生成：`docs/labs/report/expNN-filled.docx`
-   - 以 `docs/附件5：广州商学院实验报告（模板）.docx` 为模板；**不依赖 pandoc**；必要时可用 `python-docx`（仓库当前无现成脚本）。
+   - 以 `docs/附件5：广州商学院实验报告（模板）.docx`（确保 UTF-8 保存避免路径乱码）为模板；**不依赖 pandoc**；必要时可用 `python-docx`（仓库当前无现成脚本）。
 6) **滚动补充累计总 docx**：
    - 在 `docs/labs/report/exp-total-filled.docx` 中追加本次实验内容，形成新的累计总报告版本。
    - 约束：历史内容不随意改写；新增内容追加到末尾；必要时更新目录/页码（以模板约束为准）。
