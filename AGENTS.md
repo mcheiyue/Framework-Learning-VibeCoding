@@ -155,9 +155,12 @@ mvnw.cmd -Dtest=*Tests test
 4) **启动与手工验证（如需要取证）**：
    - 若课程示例默认端口（8080/8081/8082）在本机不可用（Windows 可能存在 TCP 排除端口范围 8000-8099），取证端口优先用 `18080/18081/18082`。
    - **只用运行参数覆盖端口**，不要为了取证去提交 YAML 里的端口改动。
+   - 类 Unix 覆盖端口：`cd demo && ./mvnw spring-boot:run -Dspring-boot.run.arguments="--server.port=18080"`；Windows 覆盖端口：`cd demo && mvnw.cmd spring-boot:run -Dspring-boot.run.arguments="--server.port=18080"`；IDE Program arguments 填 `--server.port=18080` 即可。
 5) **取证并落盘（强制）**：
+   - 落盘前先建证据目录：类 Unix：`mkdir -p docs/labs/weekly/assets/weekN`；Windows：`mkdir docs\labs\weekly\assets\weekN`
    - curl 取证（建议统一加代理规避参数）：
      - `curl --noproxy "*" http://localhost:${PORT}/... > docs/labs/weekly/assets/weekN/NN-xxx.json`
+      - PowerShell 用 `curl.exe`，示例：`curl.exe --noproxy "*" http://localhost:18080/v3/api-docs > docs/labs/weekly/assets/weekN/NN-api.json`
    - 浏览器截图（Swagger UI / 页面 / Network headers 等）：
      - 保存为：`docs/labs/weekly/assets/weekN/NN-xxx.png`
    - 日志/控制台关键片段：
@@ -192,6 +195,7 @@ mvnw.cmd -Dtest=*Tests test
 ### 8.4 证据资产规范（强约束）
 - 目录固定：`docs/labs/weekly/assets/weekN/`
 - 命名固定：`NN-描述.ext`（允许 `02a-...` 作为补充证据）；ext 仅用 `.png/.json/.txt/.log`
+- 编号从 `01-` 递增，补充片段用 `02a-...`。示例：`01-api.json`、`02-page.png`、`02a-log.txt`。
 - 周总结中优先使用可点击的相对链接引用证据文件。
 
 ### 8.5 环境/取证注意事项（遇到则按此处理）
@@ -199,7 +203,7 @@ mvnw.cmd -Dtest=*Tests test
 - **端口**：若 8080 不可绑定，统一改 18080/18081/18082 取证，并在周总结/报告写明适配原因。
 - **curl**：若受 `http_proxy` 影响访问 localhost，统一加 `--noproxy "*"`。
 - **CORS 真跨域**：需要浏览器侧证据时，可用 `python -m http.server 5173` 启静态页面配合截图与预检 headers。
-- **SpringDoc 取证**：接口文档可通过 `/v3/api-docs` 与 `/swagger-ui.html` 访问，取证时遵循上方端口覆盖策略。
+- **SpringDoc 取证**：接口文档可通过 `/v3/api-docs` 与 `/swagger-ui.html`、`/swagger-ui/index.html` 访问，取证时遵循上方端口覆盖策略。
 
 ### 8.6 提交节奏（不含 push/PR）
 - 建议提交类型（与现有仓库提交风格保持一致）：
