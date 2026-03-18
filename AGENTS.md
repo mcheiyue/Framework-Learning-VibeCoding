@@ -136,3 +136,80 @@ mvnw.cmd -Dtest=*Tests test
 - 测试入口：`demo/src/test/java/com/example/demo/DemoApplicationTests.java`
 - YAML 配置：`demo/src/main/resources/application.yaml`
 - 课程规范：`docs/第1周-DevTools与多环境配置.md`、`docs/第2周-统一响应异常处理与参数校验.md`、`docs/第3周-日志管理与跨域配置.md`、`docs/第4周-API文档生成.md`
+
+## 8. 工作流（课程推进闭环）
+
+> 目标：让每次课程推进都能形成“实现 → 验证 → 取证 → 沉淀”，并在用户指定的实验范围结束后交付 `expNN.md`（先审阅）与 `expNN-filled.docx`（独立 Word），同时将新增内容滚动补充到累计总 `exp-total-filled.docx` 中。
+
+### 8.1 核心原则（必须遵守）
+- **不修改课程原文档**：`docs/第N周-*.md` 只读引用；所有落地变更在 `demo/`（以及必要的 `docs/labs/**` 产物）完成。
+- **小步提交**：每个 weekN/里程碑建议拆成 2~4 个提交；最后一个提交必须包含：周总结 + 证据资产。
+- **先验证后留证**：任何对外宣称“完成”的功能，都必须有可复现的步骤/命令 + 落盘证据文件。
+
+### 8.2 周次推进闭环（每个 weekN / 里程碑）
+1) **对齐范围**：阅读对应课程文档 `docs/第N周-*.md`，在周总结开头写清：本周落地范围（IN）/明确不做什么（OUT）。
+2) **实现**：在 `demo/` 落地（遵循本仓库代码风格与目录约定；修改已有文件保持 Tab 缩进一致）。
+3) **必跑单测（门槛）**：
+   - 类 Unix：`cd demo && ./mvnw test`
+   - Windows：`cd demo && mvnw.cmd test`
+4) **启动与手工验证（如需要取证）**：
+   - 若课程示例默认端口（8080/8081/8082）在本机不可用（Windows 可能存在 TCP 排除端口范围 8000-8099），取证端口优先用 `18080/18081/18082`。
+   - **只用运行参数覆盖端口**，不要为了取证去提交 YAML 里的端口改动。
+5) **取证并落盘（强制）**：
+   - curl 取证（建议统一加代理规避参数）：
+     - `curl --noproxy "*" http://localhost:${PORT}/... > docs/labs/weekly/assets/weekN/NN-xxx.json`
+   - 浏览器截图（Swagger UI / 页面 / Network headers 等）：
+     - 保存为：`docs/labs/weekly/assets/weekN/NN-xxx.png`
+   - 日志/控制台关键片段：
+     - 保存为：`docs/labs/weekly/assets/weekN/NN-xxx.log`
+6) **沉淀周总结（强制）**：
+   - 新增/更新：`docs/labs/weekly/weekN.md`
+   - 必须包含“效果验证清单（checkbox）”，且每条都写清：**步骤** / **预期** / **证据链接**。
+
+### 8.3 实验报告交付闭环（每次“规定范围”结束后触发）
+> 关键点：实验范围不固定，必须由用户当次指定（例如：Week5~Week8，或 Week6+Week8 等）。
+
+0) **累计总报告初始化（仅第一次需要）**：
+   - 若 `docs/labs/report/exp-total-filled.docx` 不存在，则从 `docs/labs/report/exp01-filled.docx` 复制生成。
+
+1) **确定本次实验范围**（用户提供）：
+   - 覆盖 week 列表/范围：`[weekA, weekB, ...]` 或 `weekX~weekY`
+   - 实验编号：`expNN`
+2) **范围内证据齐套检查**：确保范围内每个 week 都已存在：
+   - 周总结：`docs/labs/weekly/weekK.md`
+   - 证据目录：`docs/labs/weekly/assets/weekK/`
+3) **先产出 Markdown（强制先审阅）**：
+   - 新增/更新：`docs/labs/report/expNN.md`
+   - 按 `docs/实验报告模板_markdown.md` 的结构撰写，并优先引用 `../weekly/assets/weekK/...` 的证据（避免重复拷贝）。
+4) **用户审阅门禁**：仅当用户确认 `expNN.md` 通过后，才进入 Word。
+5) **再产出独立 Word**：
+   - 生成：`docs/labs/report/expNN-filled.docx`
+   - 以 `docs/附件5：广州商学院实验报告（模板）.docx` 为模板；**不依赖 pandoc**；必要时可用 `python-docx`（仓库当前无现成脚本）。
+6) **滚动补充累计总 docx**：
+   - 在 `docs/labs/report/exp-total-filled.docx` 中追加本次实验内容，形成新的累计总报告版本。
+   - 约束：历史内容不随意改写；新增内容追加到末尾；必要时更新目录/页码（以模板约束为准）。
+
+### 8.4 证据资产规范（强约束）
+- 目录固定：`docs/labs/weekly/assets/weekN/`
+- 命名固定：`NN-描述.ext`（允许 `02a-...` 作为补充证据）；ext 仅用 `.png/.json/.txt/.log`
+- 周总结中优先使用可点击的相对链接引用证据文件。
+
+### 8.5 环境/取证注意事项（遇到则按此处理）
+- **JDK**：执行 `./mvnw -v` / `mvnw.cmd -v` 确认 Maven Wrapper 实际使用 Java 21+，避免被 JDK11 驱动导致构建/测试异常。
+- **端口**：若 8080 不可绑定，统一改 18080/18081/18082 取证，并在周总结/报告写明适配原因。
+- **curl**：若受 `http_proxy` 影响访问 localhost，统一加 `--noproxy "*"`。
+- **CORS 真跨域**：需要浏览器侧证据时，可用 `python -m http.server 5173` 启静态页面配合截图与预检 headers。
+- **SpringDoc 取证**：接口文档可通过 `/v3/api-docs` 与 `/swagger-ui.html` 访问，取证时遵循上方端口覆盖策略。
+
+### 8.6 提交节奏（不含 push/PR）
+- 建议提交类型（与现有仓库提交风格保持一致）：
+  - `feat(weekN): ...`（功能/配置落地）
+  - `test(weekN): ...`（补齐/修复测试）
+  - `docs(weekN): 增加 weekN 周总结与证据资产`（周末收口提交）
+  - `docs(expNN): 增加 expNN 实验报告（md/docx）`
+  - `docs(report): 滚动补充累计总实验报告（docx）`
+
+### 8.7 OhMyOpenCode 代理工作模式（短版）
+- Prometheus：只产出计划/草稿（`.sisyphus/plans/*`、`.sisyphus/drafts/*`），不直接改业务代码。
+- 计划确认后：用 `/start-work` 让 Sisyphus 按计划执行实现与验证。
+- 过程证据：可落在 `.sisyphus/evidence/`（通常不提交，用于追溯）。
